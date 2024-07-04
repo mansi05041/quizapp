@@ -1,0 +1,25 @@
+.question-list-table {
+    max-height: 400px;
+    overflow-y: scroll;
+    margin-top: 30px;
+  }
+
+.sticky-header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.modal-body{
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+.modal-header, .modal-footer{
+  background-color: #e9ecef;
+}
+
+.form-group{
+  padding: 10px;
+}
