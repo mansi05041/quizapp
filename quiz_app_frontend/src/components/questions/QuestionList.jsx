@@ -4,9 +4,12 @@ import "./QuestionList.css";
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editQuestionId, setEditQuestionId] = useState(null);
   const [newQuestion, setNewQuestion] = useState({
     questionTitle: '',
     option1: '',
@@ -17,28 +20,35 @@ const QuestionList = () => {
     difficultyLevel: '',
     category: ''
   });
-
+  const [selectedCategory, setSelectedCategory] = useState('');
+  
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/question/allQuestions"
-        );
-        setQuestions(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
+  // fetching all the questions present in the db or by categories
+  const fetchData = async (category='') => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = category 
+      ? await axios.get(`http://localhost:8080/question/category/${category}`)
+      : await axios.get("http://localhost:8080/question/allQuestions");
+      setQuestions(response.data);
+      if(!category){
+        const uniqueCategories = [...new Set(response.data.map(q => q.category))];
+        setCategories(uniqueCategories);
+    }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // handling the add question or update question
   const handleAddQuestion = async () =>{
-    try{
+    
       if (!newQuestion.questionTitle ||
         !newQuestion.option1 ||
         !newQuestion.option2 ||
@@ -50,7 +60,18 @@ const QuestionList = () => {
           alert("Please fill in all fields.");
           return;
         }
-        
+      try{
+      if(isEditing){
+        console.log(editQuestionId);
+        await axios.put(`http://localhost:8080/question/updateQuestion/${editQuestionId}`,newQuestion);
+        const updatedQuestions = questions.map(question => 
+          question.id === editQuestionId ? {...question, ...newQuestion} : question);
+        setQuestions(updatedQuestions);
+        setIsEditing(false);
+        setEditQuestionId(null);
+        window.location.reload();
+        alert("Question updated successfully!");
+      }else{
       const response = await axios.post('http://localhost:8080/question/addQuestion',newQuestion);
       setQuestions([...questions, response.data])
       setShowModal(false);
@@ -66,16 +87,66 @@ const QuestionList = () => {
       });
       window.location.reload();
       alert("Question added successfully!");
+      }
     }catch(error){
       setError(error);
     }
   };
 
+  // handling the deletion of question
+  const handleDeleteQuestion = async (id) => {
+    if (window.confirm("Are you sure you want to delete this question?")) {
+      try {
+        await axios.delete(`http://localhost:8080/question/deleteQuestion/${id}`);
+        const updatedQuestions = questions.filter(question => question.id !== id);
+        setQuestions(updatedQuestions);
+        alert("Question deleted successfully!");
+      } catch (error) {
+        setError(error);
+      }
+    }
+  };
+
+  // handling the editing of question
+  const handleEditQuestion = (question) => {
+    setIsEditing(true);
+    setEditQuestionId(question.id);
+    setNewQuestion({
+      questionTitle: question.questionTitle,
+      option1: question.option1,
+      option2: question.option2,
+      option3: question.option3,
+      option4: question.option4,
+      rightAnswer: question.rightAnswer,
+      difficultyLevel: question.difficultyLevel,
+      category: question.category
+    });
+    setShowModal(true);
+  }
+
+  // handling the change of question
   const handleChange = (e) =>{
     const {name, value} = e.target;
     setNewQuestion((prev) => ({...prev, [name]:value}));
   };
 
+  // handling the category change
+  const handleCategoryChange = (category) =>{
+    setSelectedCategory(category);
+    try{
+      if(category===''){
+        fetchData(); // fetching all questions
+      }
+      else{
+        fetchData(category); // fetching questions by selected categories
+      }
+    }catch(error){
+      setError(error);
+    }
+  }
+
+
+  // HTML structure
   return (
     <div className="container-fluid p-5">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -83,6 +154,20 @@ const QuestionList = () => {
         <button className="btn btn-dark" onClick={()=> setShowModal(true)}>
           Add Question
         </button>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="categoryFilter" className="form-label filter">Filter by Category</label>
+        <select
+          id="categoryFilter"
+          className="form-select form-select-sm mb-3"
+          value={selectedCategory}
+          onChange={(e) => handleCategoryChange(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          {categories.map((category,index)=>(
+            <option key={index} value={category}>{category}</option>
+          ))}
+        </select>
       </div>
       {isLoading && <p>Loading questions...</p>}
       {error && <p>Error: {error.message}</p>}
@@ -100,6 +185,7 @@ const QuestionList = () => {
                 <th scope="col">Right Answer</th>
                 <th scope="col">Difficulty</th>
                 <th scope="col">Category</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -114,6 +200,10 @@ const QuestionList = () => {
                   <td>{question.rightAnswer}</td>
                   <td>{question.difficultyLevel}</td>
                   <td>{question.category}</td>
+                  <td>
+                    <button className="btn btn-primary btn-sm mr-2" onClick={()=> handleEditQuestion(question)}>Update</button>
+                    <button className="btn btn-danger btn-sm m-2" onClick={()=> handleDeleteQuestion(question.id)}>Delete</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -130,7 +220,7 @@ const QuestionList = () => {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Add New Question</h5>
+                <h5 className="modal-title">{isEditing? 'Update Question':'Add New Question'}</h5>
               </div>
               <div className="modal-body p-4">
                 <form>

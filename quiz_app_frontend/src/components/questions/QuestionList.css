@@ -8,6 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color: white;
 }
 
 .modal-body{
@@ -22,4 +23,14 @@
 
 .form-group{
   padding: 10px;
+}
+
+#categoryFilter{
+  max-width: "200px";
+  background-color: "#f8f9fa";
+  border: "1px solid #6c757d";
+}
+
+.filter{
+  color: darkslategrey;
 }
