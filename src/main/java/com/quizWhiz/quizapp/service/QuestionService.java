@@ -89,4 +89,23 @@ public class QuestionService {
         return null;
     }
 
+    // Give the List of categories
+    public ResponseEntity<List<String>> getCategories() {
+        try {
+            return new ResponseEntity<>(questionRepo.findAllDistinctCategories(),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+    }
+
+    // Give the number of Questions for specific categories
+    public ResponseEntity<Integer> getQuestionCountByCategory(String category){
+        try {
+            return  new ResponseEntity<>(questionRepo.findCountQuestionByCategory(category),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  new ResponseEntity<Integer>(0,HttpStatus.BAD_REQUEST);
+    }
 }

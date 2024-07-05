@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("question")
 public class QuestionController {
 
@@ -27,6 +27,18 @@ public class QuestionController {
     @GetMapping("category/{category}")
     public ResponseEntity<List<Question>> getQuestionByCategory(@PathVariable String category){
         return questionService.getQuestionByCategory(category);
+    }
+
+    // To get the List of categories
+    @GetMapping("category")
+    public ResponseEntity<List<String>> getCategories(){
+        return questionService.getCategories();
+    }
+
+    // To get the number od Questions for a Category
+    @GetMapping("category/{category}/count")
+    public ResponseEntity<Integer> getCategoryQuestionCount(@PathVariable String category){
+        return questionService.getQuestionCountByCategory(category);
     }
 
     // To add the question

@@ -1,0 +1,32 @@
+.bg-light-grey{
+    background-color: #f7f7f7;
+}
+
+.text-dark-grey{
+    color:#333;
+}
+
+.bg-grey{
+    background-color: #e0e0e0;
+}
+
+.form-control:focus{
+    border-color: #9e9e9e;
+    box-shadow: none;
+}
+
+.custom-select:focus{
+    border-color: #9e9e9e;
+    box-shadow: none;
+}
+
+.container-fluid{
+    max-width: 600px;
+    margin: 50px;
+    padding: 40px;
+}
+
+.submit-button{
+    text-align: center;
+    padding: 30px;
+}
