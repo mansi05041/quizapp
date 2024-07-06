@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Quiz Application Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the frontend of a quiz application built using React and Bootstrap. The application allows users to create quizzes, play quizzes, and manage questions.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. [Running the Application](#running-the-application)
+2. [Functionality Overview](#functionality-overview)
+    - [Home Page](#home-page)
+    - [Create Quiz Page](#create-quiz-page)
+    - [Play Quiz Page](#play-quiz-page)
+    - [Question Management Page](#question-management-page)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Running the Application
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To run the application locally:
 
-### `npm test`
+```bash
+npm start
+```
+The application will be available at ```http://localhost:3000```.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Functionality Overview
 
-### `npm run build`
+### Home Page
+```Location: / ```</br>
+The Home Page provides a brief introduction and navigation options 
+to other parts of the application.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Create Quiz Page
+```Location: /quiz/create```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The Create Quiz Page allows users to create a new quiz by providing the following details:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Quiz Title 
+- Number of Questions 
+- Category (dropdown with all categories and an option for all categories)
 
-### `npm run eject`
+</br>Upon submission, the quiz is created, and a success message is displayed.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Play Quiz Page
+```Location: /quiz/play```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The Play Quiz Page allows users to select and play a quiz. The functionalities include:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- A dropdown to select a quiz from the available quizzes.
+- Displaying all questions of the selected quiz.
+- Answering each question by choosing one of the options.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+</br>Submitting the quiz and displaying a success message upon successful submission.
 
-## Learn More
+### Question Management Page
+```Location: /questions```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The Question Management Page provides functionalities to manage questions. The functionalities include:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Adding a new question.
+- Updating an existing question.
+- Deleting a question.
+- Viewing all questions with their details.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<strong>Note:
+Ensure the backend server is running on port 8080 before starting the frontend server to avoid any connectivity issues.
+</strong>
