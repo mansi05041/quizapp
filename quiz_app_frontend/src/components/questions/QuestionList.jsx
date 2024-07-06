@@ -148,7 +148,7 @@ const QuestionList = () => {
 
   // HTML structure
   return (
-    <div className="container-fluid p-5">
+    <div className="container p-2">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>Question List</h2>
         <button className="btn btn-dark" onClick={()=> setShowModal(true)}>
