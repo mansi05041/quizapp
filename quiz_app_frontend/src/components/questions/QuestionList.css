@@ -1,36 +1,40 @@
 .question-list-table {
-    max-height: 400px;
-    overflow-y: scroll;
-    margin-top: 30px;
-  }
+  max-height: 400px;
+  overflow-y: scroll;
+  margin-top: 30px;
+}
+
+.table{
+  width: 100%;
+}
 
 .sticky-header{
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: white;
+position: sticky;
+top: 0;
+z-index: 1;
+background-color: white;
 }
 
 .modal-body{
-  max-height: 400px;
-  overflow-y: auto;
-  background-color: #f8f9fa;
+max-height: 400px;
+overflow-y: auto;
+background-color: #f8f9fa;
 }
 
 .modal-header, .modal-footer{
-  background-color: #e9ecef;
+background-color: #e9ecef;
 }
 
 .form-group{
-  padding: 10px;
+padding: 10px;
 }
 
 #categoryFilter{
-  max-width: "200px";
-  background-color: "#f8f9fa";
-  border: "1px solid #6c757d";
+max-width: "200px";
+background-color: "#f8f9fa";
+border: "1px solid #6c757d";
 }
 
 .filter{
-  color: darkslategrey;
+color: darkslategrey;
 }
