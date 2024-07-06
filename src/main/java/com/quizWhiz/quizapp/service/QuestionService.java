@@ -108,4 +108,14 @@ public class QuestionService {
         }
         return  new ResponseEntity<Integer>(0,HttpStatus.BAD_REQUEST);
     }
+
+    // Give the total number of questions present in the db
+    public ResponseEntity<Long> totalCountQuestions() {
+        try {
+            return new ResponseEntity<>(questionRepo.count(),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(0L,HttpStatus.BAD_REQUEST);
+    }
 }

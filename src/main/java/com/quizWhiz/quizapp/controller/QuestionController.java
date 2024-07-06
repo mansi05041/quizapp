@@ -65,6 +65,12 @@ public class QuestionController {
         Optional<Question> updatedQuestion = questionService.updateQuestion(id,newQuestion);
         return updatedQuestion.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
     }
+
+    // To get the count of total questions
+    @GetMapping("totalCount")
+    public ResponseEntity<Long> totalCountQuestions(){
+        return questionService.totalCountQuestions();
+    }
 }
 
 

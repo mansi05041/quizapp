@@ -1,5 +1,6 @@
 package com.quizWhiz.quizapp.controller;
 
+import com.quizWhiz.quizapp.modal.Question;
 import com.quizWhiz.quizapp.modal.QuestionWrapper;
 import com.quizWhiz.quizapp.modal.UserResponse;
 import com.quizWhiz.quizapp.service.QuizService;
@@ -17,10 +18,16 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
-    // create the Quiz
+    // create the Quiz of specific category
     @PostMapping("createQuiz")
     public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title){
         return quizService.createQuiz(category,numQ,title);
+    }
+
+    // create the quiz of random Questions
+    @PostMapping("createQuizRandom")
+    public ResponseEntity<String> createQuizFromRandomQuestions(@RequestParam Integer numQ,@RequestParam String title){
+        return  quizService.createQuizFromRandomQuestions(numQ,title);
     }
 
     // Get the Quiz

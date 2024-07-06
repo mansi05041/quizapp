@@ -39,7 +39,13 @@ const CreateQuiz = () =>{
         setQuizDetails((prev) => ({...prev, category}));
         if(category){
             try{
-                const response = await axios.get(`http://localhost:8080/question/category/${category}/count`);
+                let response;
+                if(category==='all'){
+                    response = await axios.get('http://localhost:8080/question/totalCount');
+                }
+                else{
+                    response = await axios.get(`http://localhost:8080/question/category/${category}/count`);
+                }
                 setMaxQuestions(response.data);
                 setQuizDetails((prev) => ({...prev, numberOfQuestions: ''}));
             }catch(error){
@@ -61,13 +67,23 @@ const CreateQuiz = () =>{
     const handleSubmit = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:8080/quiz/createQuiz',null,{
-                params:{
-                    title: quizDetails.title,
-                    numQ: quizDetails.numberOfQuestions,
-                    category: quizDetails.category
-                }
-            });
+            if(quizDetails.category==='all'){
+                await axios.post('http://localhost:8080/quiz/createQuizRandom',null,{
+                    params:{
+                        title: quizDetails.title,
+                        numQ: quizDetails.numberOfQuestions
+                    }
+                });
+            }
+            else{
+                await axios.post('http://localhost:8080/quiz/createQuiz',null,{
+                    params:{
+                        title: quizDetails.title,
+                        numQ: quizDetails.numberOfQuestions,
+                        category: quizDetails.category
+                    }
+                });
+            }
             setMessage("Quiz created successfully!");
             setQuizDetails({
                 title: '',
@@ -107,6 +123,7 @@ const CreateQuiz = () =>{
                     required
                     >
                     <option value="">Select Category</option>
+                    <option value="all">All Categories</option>
                     {categories.map((category,index)=>(
                         <option key={index} value={category}>{category}</option>
                     ))}

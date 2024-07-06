@@ -38,6 +38,21 @@ public class QuizService {
         return new ResponseEntity<>("Failure",HttpStatus.BAD_REQUEST);
     }
 
+    // Create Quiz of Random questions
+    public ResponseEntity<String> createQuizFromRandomQuestions(Integer numQ, String title) {
+        try{
+            List<Question> questions = questionRepo.findRandomQuestion(numQ);
+            Quiz quiz = new Quiz();
+            quiz.setTitle(title);
+            quiz.setQuestionList(questions);
+            quizRepo.save(quiz);
+            return new ResponseEntity<>("Quiz Created",HttpStatus.CREATED);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return  new ResponseEntity<>("Failure",HttpStatus.BAD_REQUEST);
+    }
+
     // Get Questions of Quiz
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Integer id) {
         try {
