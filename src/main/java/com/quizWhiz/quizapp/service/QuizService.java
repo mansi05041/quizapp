@@ -89,4 +89,14 @@ public class QuizService {
         }
         return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
     }
+
+    // getting all the quizzes present in the db
+    public ResponseEntity<List<Quiz>> getAllQuizzes() {
+        try {
+            return new ResponseEntity<>(quizRepo.findAll(),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+    }
 }

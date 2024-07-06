@@ -2,6 +2,7 @@ package com.quizWhiz.quizapp.controller;
 
 import com.quizWhiz.quizapp.modal.Question;
 import com.quizWhiz.quizapp.modal.QuestionWrapper;
+import com.quizWhiz.quizapp.modal.Quiz;
 import com.quizWhiz.quizapp.modal.UserResponse;
 import com.quizWhiz.quizapp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class QuizController {
     @PostMapping("createQuizRandom")
     public ResponseEntity<String> createQuizFromRandomQuestions(@RequestParam Integer numQ,@RequestParam String title){
         return  quizService.createQuizFromRandomQuestions(numQ,title);
+    }
+
+    // Get all the Quiz
+    @GetMapping("getQuiz")
+    public ResponseEntity<List<Quiz>> getAllQuizzes(){
+        return quizService.getAllQuizzes();
     }
 
     // Get the Quiz
