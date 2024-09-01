@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Overview](#overview)
+- [Project Demo](#demo)
 - [Technologies Used](#technologies-used)
 - [Prerequisites](#prerequisites)
 - [Modules and Packages](#modules-and-packages)
@@ -12,6 +13,9 @@
 
 ## Overview
 This project is a Java backend application built using the Spring Boot framework and PostgreSQL database. It provides a set of RESTful APIs for managing.
+
+### Project Demo
+[!quiz project demo.mp4]
 
 ### Technologies Used
 - **Spring Boot:** A framework for building Java applications.
@@ -55,7 +59,10 @@ This project is a Java backend application built using the Spring Boot framework
 
 
 ### Continued development
-Responsive Frontend needed with more endpoints like updating quiz, deleting quiz.
+- Responsive Frontend needed with more endpoints like updating quiz, deleting quiz.
+- Connecting the pages via Routing
+- Managed the Roles for Admin and Player separately.
+- Provide Authentication via Spring boot Security
 
 ### Useful resources
 - [Spring Boot Project for Beginners](https://youtu.be/vlz9ina4Usk?si=hLb1H9JGG84mwwGQ) - YouTube tutorial helps me to understand this project.
