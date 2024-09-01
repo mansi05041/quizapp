@@ -15,7 +15,7 @@
 This project is a Java backend application built using the Spring Boot framework and PostgreSQL database. It provides a set of RESTful APIs for managing.
 
 ### Project Demo
-![Project Demo](demo.mp4)
+[![Project Demo](demo.mp4)](https://github.com/user-attachments/assets/113f0d8c-a4b3-4778-9f1f-105ddfb68e31)
 
 ### Technologies Used
 - **Spring Boot:** A framework for building Java applications.
